@@ -1,0 +1,86 @@
+<pre data-bulb-node-id="ho1w-1668310555925" data-block-type="code-line" class="css-1b548g5"><span data-bulb-node-id="XhIC-1668307954978"><code class="token keyword ">void</code><code class="token plain "> Usart1_Init</code><code class="token punctuation ">(</code><code class="token keyword ">void</code><code class="token punctuation ">)</code><code class="token plain ">
+</code></span></pre>
+<pre data-bulb-node-id="ZGRz-1668310557305" data-block-type="code-line" class="css-1b548g5"><span data-bulb-node-id="vth1-1668310557304"><code class="token punctuation ">{</code><code class="token plain ">
+</code></span></pre>
+<pre data-bulb-node-id="JSSO-1668310557308" data-block-type="code-line" class="css-1b548g5"><span data-bulb-node-id="uE1u-1668310557307"><code class="token plain ">	GPIO_InitTypeDef GPIO_InitStruct</code><code class="token punctuation ">;</code><code class="token plain ">
+</code></span></pre>
+<pre data-bulb-node-id="mYkl-1668310557310" data-block-type="code-line" class="css-1b548g5"><span data-bulb-node-id="LGn7-1668310557309"><code class="token plain ">	USART_InitTypeDef USART_InitStruct</code><code class="token punctuation ">;</code><code class="token plain ">
+</code></span></pre>
+<pre data-bulb-node-id="cb04-1668310557312" data-block-type="code-line" class="css-1b548g5"><span data-bulb-node-id="gnxN-1668310557311"><code class="token plain ">	
+</code></span></pre>
+<pre data-bulb-node-id="Cpl0-1668310557314" data-block-type="code-line" class="css-1b548g5"><span data-bulb-node-id="gpP1-1668310557313"><code class="token plain ">	</code><code class="token comment ">/* Set PA9¡¢PA10 clock */</code><code class="token plain ">
+</code></span></pre>
+<pre data-bulb-node-id="UVKO-1668310557316" data-block-type="code-line" class="css-1b548g5"><span data-bulb-node-id="mQwV-1668310557315"><code class="token plain ">	RCC_APB2PeriphClockCmd</code><code class="token punctuation ">(</code><code class="token plain ">RCC_APB2Periph_GPIOA </code><code class="token operator ">|</code><code class="token plain "> RCC_APB2Periph_AFIO</code><code class="token punctuation ">,</code><code class="token plain "> </code><code class="token constant ">ENABLE</code><code class="token punctuation ">);</code><code class="token plain ">
+</code></span></pre>
+<pre data-bulb-node-id="wMxd-1668310557318" data-block-type="code-line" class="css-1b548g5"><span data-bulb-node-id="ZevK-1668310557317"><code class="token plain ">	
+</code></span></pre>
+<pre data-bulb-node-id="Qfhs-1668310557320" data-block-type="code-line" class="css-1b548g5"><span data-bulb-node-id="l3jW-1668310557319"><code class="token plain ">	</code><code class="token comment ">/* Set USART1 clock */</code><code class="token plain ">
+</code></span></pre>
+<pre data-bulb-node-id="rAPu-1668310557322" data-block-type="code-line" class="css-1b548g5"><span data-bulb-node-id="oUch-1668310557321"><code class="token plain ">	RCC_APB2PeriphClockCmd</code><code class="token punctuation ">(</code><code class="token plain ">RCC_APB2Periph_USART1</code><code class="token punctuation ">,</code><code class="token plain "> </code><code class="token constant ">ENABLE</code><code class="token punctuation ">);</code><code class="token plain ">
+</code></span></pre>
+<pre data-bulb-node-id="IsWM-1668310557324" data-block-type="code-line" class="css-1b548g5"><span data-bulb-node-id="CDUc-1668310557323"><code class="token plain ">	
+</code></span></pre>
+<pre data-bulb-node-id="1EH8-1668310557326" data-block-type="code-line" class="css-1b548g5"><span data-bulb-node-id="MzTR-1668310557325"><code class="token plain ">	</code><code class="token comment ">/* Init PA9 work Mode :  GPIO_Mode_AF_PP */</code><code class="token plain ">
+</code></span></pre>
+<pre data-bulb-node-id="GKEm-1668310557328" data-block-type="code-line" class="css-1b548g5"><span data-bulb-node-id="cfEO-1668310557327"><code class="token plain ">	GPIO_InitStruct</code><code class="token punctuation ">.</code><code class="token plain ">GPIO_Pin </code><code class="token operator ">=</code><code class="token plain "> GPIO_Pin_9</code><code class="token punctuation ">;</code><code class="token plain ">
+</code></span></pre>
+<pre data-bulb-node-id="z6Rx-1668310557330" data-block-type="code-line" class="css-1b548g5"><span data-bulb-node-id="0IDn-1668310557329"><code class="token plain ">	GPIO_InitStruct</code><code class="token punctuation ">.</code><code class="token plain ">GPIO_Mode </code><code class="token operator ">=</code><code class="token plain "> GPIO_Mode_AF_PP</code><code class="token punctuation ">;</code><code class="token plain ">
+</code></span></pre>
+<pre data-bulb-node-id="qpEx-1668310557332" data-block-type="code-line" class="css-1b548g5"><span data-bulb-node-id="VytX-1668310557331"><code class="token plain ">	GPIO_InitStruct</code><code class="token punctuation ">.</code><code class="token plain ">GPIO_Speed </code><code class="token operator ">=</code><code class="token plain "> GPIO_Speed_50MHz</code><code class="token punctuation ">;</code><code class="token plain ">
+</code></span></pre>
+<pre data-bulb-node-id="ynJ0-1668310557334" data-block-type="code-line" class="css-1b548g5"><span data-bulb-node-id="LK4E-1668310557333"><code class="token plain ">	GPIO_Init</code><code class="token punctuation ">(</code><code class="token constant ">GPIOA</code><code class="token punctuation ">,</code><code class="token plain "> </code><code class="token operator ">&amp;</code><code class="token plain ">GPIO_InitStruct</code><code class="token punctuation ">);</code><code class="token plain ">
+</code></span></pre>
+<pre data-bulb-node-id="eCcs-1668310557336" data-block-type="code-line" class="css-1b548g5"><span data-bulb-node-id="ghC6-1668310557335"><code class="token plain ">	</code><code class="token comment ">/* Init PA10 work Mode */</code><code class="token plain ">
+</code></span></pre>
+<pre data-bulb-node-id="CrSe-1668310557338" data-block-type="code-line" class="css-1b548g5"><span data-bulb-node-id="a1YE-1668310557337"><code class="token plain ">	GPIO_InitStruct</code><code class="token punctuation ">.</code><code class="token plain ">GPIO_Pin </code><code class="token operator ">=</code><code class="token plain "> GPIO_Pin_10</code><code class="token punctuation ">;</code><code class="token plain ">
+</code></span></pre>
+<pre data-bulb-node-id="pXvV-1668310557340" data-block-type="code-line" class="css-1b548g5"><span data-bulb-node-id="r4c6-1668310557339"><code class="token plain ">	GPIO_InitStruct</code><code class="token punctuation ">.</code><code class="token plain ">GPIO_Mode </code><code class="token operator ">=</code><code class="token plain "> GPIO_Mode_IN_FLOATING</code><code class="token punctuation ">;</code><code class="token plain ">
+</code></span></pre>
+<pre data-bulb-node-id="z0YS-1668310557342" data-block-type="code-line" class="css-1b548g5"><span data-bulb-node-id="YZzy-1668310557341"><code class="token plain ">	GPIO_InitStruct</code><code class="token punctuation ">.</code><code class="token plain ">GPIO_Speed </code><code class="token operator ">=</code><code class="token plain "> GPIO_Speed_50MHz</code><code class="token punctuation ">;</code><code class="token plain ">
+</code></span></pre>
+<pre data-bulb-node-id="5QMl-1668310557344" data-block-type="code-line" class="css-1b548g5"><span data-bulb-node-id="144d-1668310557343"><code class="token plain ">	GPIO_Init</code><code class="token punctuation ">(</code><code class="token constant ">GPIOA</code><code class="token punctuation ">,</code><code class="token plain "> </code><code class="token operator ">&amp;</code><code class="token plain ">GPIO_InitStruct</code><code class="token punctuation ">);</code><code class="token plain ">
+</code></span></pre>
+<pre data-bulb-node-id="xDkR-1668310557346" data-block-type="code-line" class="css-1b548g5"><span data-bulb-node-id="VT7y-1668310557345"><code class="token plain ">	
+</code></span></pre>
+<pre data-bulb-node-id="OiiA-1668310557348" data-block-type="code-line" class="css-1b548g5"><span data-bulb-node-id="iK3X-1668310557347"><code class="token plain ">	</code><code class="token comment ">/* Init USART1 */</code><code class="token plain ">
+</code></span></pre>
+<pre data-bulb-node-id="aoDB-1668310557350" data-block-type="code-line" class="css-1b548g5"><span data-bulb-node-id="8qSc-1668310557349"><code class="token plain ">	USART_InitStruct</code><code class="token punctuation ">.</code><code class="token plain ">USART_BaudRate </code><code class="token operator ">=</code><code class="token plain "> </code><code class="token number ">115200</code><code class="token punctuation ">;</code><code class="token plain ">
+</code></span></pre>
+<pre data-bulb-node-id="1pPA-1668310557352" data-block-type="code-line" class="css-1b548g5"><span data-bulb-node-id="vgDt-1668310557351"><code class="token plain ">	USART_InitStruct</code><code class="token punctuation ">.</code><code class="token plain ">USART_WordLength </code><code class="token operator ">=</code><code class="token plain "> USART_WordLength_8b</code><code class="token punctuation ">;</code><code class="token plain ">
+</code></span></pre>
+<pre data-bulb-node-id="c1UH-1668310557354" data-block-type="code-line" class="css-1b548g5"><span data-bulb-node-id="D3mV-1668310557353"><code class="token plain ">	USART_InitStruct</code><code class="token punctuation ">.</code><code class="token plain ">USART_StopBits </code><code class="token operator ">=</code><code class="token plain "> USART_StopBits_1</code><code class="token punctuation ">;</code><code class="token plain ">
+</code></span></pre>
+<pre data-bulb-node-id="jxrK-1668310557356" data-block-type="code-line" class="css-1b548g5"><span data-bulb-node-id="9WQh-1668310557355"><code class="token plain ">	USART_InitStruct</code><code class="token punctuation ">.</code><code class="token plain ">USART_Parity </code><code class="token operator ">=</code><code class="token plain "> USART_Parity_No</code><code class="token punctuation ">;</code><code class="token plain ">
+</code></span></pre>
+<pre data-bulb-node-id="1eWP-1668310557358" data-block-type="code-line" class="css-1b548g5"><span data-bulb-node-id="j9tJ-1668310557357"><code class="token plain ">	USART_InitStruct</code><code class="token punctuation ">.</code><code class="token plain ">USART_Mode </code><code class="token operator ">=</code><code class="token plain "> USART_Mode_Rx </code><code class="token operator ">|</code><code class="token plain "> USART_Mode_Tx</code><code class="token punctuation ">;</code><code class="token plain ">
+</code></span></pre>
+<pre data-bulb-node-id="HK6M-1668310557360" data-block-type="code-line" class="css-1b548g5"><span data-bulb-node-id="utFM-1668310557359"><code class="token plain ">	USART_InitStruct</code><code class="token punctuation ">.</code><code class="token plain ">USART_HardwareFlowControl </code><code class="token operator ">=</code><code class="token plain "> USART_HardwareFlowControl_None</code><code class="token punctuation ">;</code><code class="token plain ">
+</code></span></pre>
+<pre data-bulb-node-id="yi5q-1668310557362" data-block-type="code-line" class="css-1b548g5"><span data-bulb-node-id="Sl6g-1668310557361"><code class="token plain ">	USART_Init</code><code class="token punctuation ">(</code><code class="token constant ">USART1</code><code class="token punctuation ">,</code><code class="token plain "> </code><code class="token operator ">&amp;</code><code class="token plain ">USART_InitStruct</code><code class="token punctuation ">);</code><code class="token plain ">
+</code></span></pre>
+<pre data-bulb-node-id="W7rx-1668310557364" data-block-type="code-line" class="css-1b548g5"><span data-bulb-node-id="0nby-1668310557363"><code class="token plain ">	
+</code></span></pre>
+<pre data-bulb-node-id="RHIt-1668310557366" data-block-type="code-line" class="css-1b548g5"><span data-bulb-node-id="BKUJ-1668310557365"><code class="token plain ">	USART_Cmd</code><code class="token punctuation ">(</code><code class="token constant ">USART1</code><code class="token punctuation ">,</code><code class="token plain "> </code><code class="token constant ">ENABLE</code><code class="token punctuation ">);</code><code class="token plain ">
+</code></span></pre>
+<pre data-bulb-node-id="TTfc-1668310557368" data-block-type="code-line" class="css-1b548g5"><span data-bulb-node-id="tTrb-1668310557367"><code class="token punctuation ">}</code><code class="token plain ">
+</code></span></pre>
+<pre data-bulb-node-id="oZjs-1668310557370" data-block-type="code-line" class="css-1b548g5"><span data-bulb-node-id="XsuS-1668310557369"><code class="token plain ">
+</code></span></pre>
+<pre data-bulb-node-id="oVll-1668310557372" data-block-type="code-line" class="css-1b548g5"><span data-bulb-node-id="h4gW-1668310557371"><code class="token keyword ">void</code><code class="token plain "> Usart1_Send</code><code class="token punctuation ">(</code><code class="token plain ">unsigned </code><code class="token keyword ">char</code><code class="token plain "> ch</code><code class="token punctuation ">)</code><code class="token plain ">
+</code></span></pre>
+<pre data-bulb-node-id="GWXe-1668310557374" data-block-type="code-line" class="css-1b548g5"><span data-bulb-node-id="7hyi-1668310557373"><code class="token punctuation ">{</code><code class="token plain ">
+</code></span></pre>
+<pre data-bulb-node-id="MPTL-1668310557376" data-block-type="code-line" class="css-1b548g5"><span data-bulb-node-id="bfSm-1668310557375"><code class="token plain ">	USART_SendData</code><code class="token punctuation ">(</code><code class="token constant ">USART1</code><code class="token punctuation ">,</code><code class="token plain "> ch</code><code class="token punctuation ">);</code><code class="token plain ">
+</code></span></pre>
+<pre data-bulb-node-id="09Qr-1668310557378" data-block-type="code-line" class="css-1b548g5"><span data-bulb-node-id="GwNE-1668310557377"><code class="token punctuation ">}</code><code class="token plain ">
+</code></span></pre>
+<pre data-bulb-node-id="vpe2-1668310557380" data-block-type="code-line" class="css-1b548g5"><span data-bulb-node-id="QixC-1668310557379"><code class="token plain ">
+</code></span></pre>
+<pre data-bulb-node-id="Imow-1668310557382" data-block-type="code-line" class="css-1b548g5"><span data-bulb-node-id="56NX-1668310557381"><code class="token plain ">unsigned </code><code class="token keyword ">char</code><code class="token plain "> Usart1_Recv</code><code class="token punctuation ">(</code><code class="token keyword ">void</code><code class="token punctuation ">)</code><code class="token plain ">
+</code></span></pre>
+<pre data-bulb-node-id="GIxO-1668310557384" data-block-type="code-line" class="css-1b548g5"><span data-bulb-node-id="3oFp-1668310557383"><code class="token punctuation ">{</code><code class="token plain ">
+</code></span></pre>
+<pre data-bulb-node-id="ERRB-1668310557386" data-block-type="code-line" class="css-1b548g5"><span data-bulb-node-id="U1Zl-1668310557385"><code class="token plain ">	</code><code class="token keyword ">return</code><code class="token plain "> USART_ReceiveData</code><code class="token punctuation ">(</code><code class="token constant ">USART1</code><code class="token punctuation ">);</code><code class="token plain ">
+</code></span></pre>
+<pre data-bulb-node-id="GBUy-1668310557388" data-block-type="code-line"
+    class="css-1b548g5"><span data-bulb-node-id="JS0d-1668310557387"><code class="token punctuation ">}</code></span></pre>
