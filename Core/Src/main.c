@@ -28,7 +28,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "mpu.h"
+#include "control.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -48,7 +48,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-extern MPU6050DATATYPE Mpu6050_Data;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -61,39 +61,39 @@ void SystemClock_Config(void);
   * @param  r: right wheel
   * @retval None
   */
-void Car_Run(int l, int r)
-{
-  if (l == 1)
-  {
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
-  }
-  else if (l == 0)
-  {
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
-  }
-  else
-  {
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
-  }
-  if (r == 1)
-  {
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_SET);
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
-  }
-  else if (r == 0)
-  {
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_RESET);
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_SET);
-  }
-  else
-  {
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_SET);
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_SET);
-  }
-}
+// void Car_Run(int l, int r)
+// {
+//   if (l == 1)
+//   {
+//     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
+//     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
+//   }
+//   else if (l == 0)
+//   {
+//     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);
+//     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
+//   }
+//   else
+//   {
+//     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
+//     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
+//   }
+//   if (r == 1)
+//   {
+//     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_SET);
+//     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
+//   }
+//   else if (r == 0)
+//   {
+//     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_RESET);
+//     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_SET);
+//   }
+//   else
+//   {
+//     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_RESET);
+//     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
+//   }
+// }
 
 void sendUart(char *str)
 {
@@ -148,7 +148,6 @@ int main(void)
   MX_TIM3_Init();
   MX_TIM4_Init();
   /* USER CODE BEGIN 2 */
-  Car_Run(1,1);
   HAL_TIM_PWM_Start_IT(&htim2, TIM_CHANNEL_3);
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_4);
   HAL_TIM_Encoder_Start(&htim3,TIM_CHANNEL_1|TIM_CHANNEL_2);
@@ -158,35 +157,24 @@ int main(void)
   const uint16_t TimeOut = 1000;
   uint8_t data[DL+1];
   memset(data,0,DL+1);
-  int16_t add = Sensor_I2C1_Serch();
-  sprintf(data,"add = %d\n", add);
-  sendUart(data);
-  sprintf(data,"ft = %f\n",2.56);
-  sendUart(data);
-  MPU6050_Init(add);
-  // HAL_TIM_Base_Start_IT(&htim2);
+  MPU6050_Init(&hi2c1);
+  // HAL_TIM_Base_Start_IT(&htim2);xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    MPU6050_Read_Accel();
-	  MPU6050_Read_Gyro();
-	  MPU6050_Read_Temp();
-    float Ax = Mpu6050_Data.Accel_X, Ay = Mpu6050_Data.Accel_Y, Az = Mpu6050_Data.Accel_Z;
-    float Gx = Mpu6050_Data.Gyro_X, Gy = Mpu6050_Data.Gyro_Y, Gz = Mpu6050_Data.Gyro_Z;
-    sprintf(data,"Ax=%d\n,Ay=%d,Az=%d\n",(int)(Ax*1000),(int)(Ay*1000),(int)(Az*1000));
 
-    // sprintf(data,"Ax=%.2f,Ay=%.2f,Az=%.2f\n",Ax,Ay,Az);
-    sendUart(data);
+    
+    // sprintf(data,"tt:%d\n",(int)g_fCarAngle);
+    // sendUart(data);
     // sprintf(data,"Gx=%.2f,Gy=%.2f,Gz=%.2f\n",Gx,Gy,Gz);
     // sendUart(data);
-    sprintf(data,"temp=%d\n",(int)Mpu6050_Data.Temp);
-    sendUart(data);
-    sprintf(data,"speed: %d,direct:%d",__HAL_TIM_GET_COUNTER(&htim3),__HAL_TIM_IS_TIM_COUNTING_DOWN(&htim3));
-    sendUart(data);
-    HAL_Delay(1000);
+    
+    // sprintf(data,"speed: %d,direct:%d",__HAL_TIM_GET_COUNTER(&htim3),__HAL_TIM_IS_TIM_COUNTING_DOWN(&htim3));
+    // sendUart(data);
+    //HAL_Delay(1000);
     // memset(data, 0, DL);
     // while (!data[0])
     // {
@@ -240,7 +228,7 @@ void SystemClock_Config(void)
     Error_Handler();
   }
 
-  /** Enables the Clock Security System
+  /** Enables the Clock Security System`z
   */
   HAL_RCC_EnableCSS();
 }

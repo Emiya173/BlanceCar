@@ -58,8 +58,12 @@ Core/Src/gpio.c \
 Core/Src/tim.c \
 Core/Src/usart.c \
 Core/Src/i2c.c \
-Core/Src/mpu.c \
-Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_i2c.c
+Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_i2c.c \
+Core/Src/mpu6050.c \
+Core/Src/filter.c \
+Core/Src/control.c \
+Core/Src/inv_mpu.c \
+Core/Src/inv_mpu_dmp_motion_driver.c \
 
 # ASM sources
 ASM_SOURCES =  \

@@ -1,0 +1,2 @@
+arm-none-eabi-gcc -c -mcpu=cortex-m3 -mthumb   -DSTM32F103xB -DUSE_HAL_DRIVER -ICore/Inc -IDrivers/STM32F1xx_HAL_Driver/Inc -IDrivers/CMSIS/Device/ST/STM32F1xx/Include -IDrivers/CMSIS/Include -IDrivers/STM32F1xx_HAL_Driver/Inc/Legacy -Og  -fdata-sections -ffunction-sections -g -gdwarf-2 -MMD -MP -MF"build/stm32f1xx_it.d" -Wa,-a,-ad,-alms=build/stm32f1xx_it.lst Core/Src/stm32f1xx_it.c -o build/stm32f1xx_it.o
+Makefile:168: recipe for target 'build/stm32f1xx_it.o' failed

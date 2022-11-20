@@ -20,8 +20,10 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stm32f1xx_it.h"
+#include "stm32f1xx_hal.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "control.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -186,13 +188,44 @@ void PendSV_Handler(void)
 void SysTick_Handler(void)
 {
   /* USER CODE BEGIN SysTick_IRQn 0 */
+  
+  g_nMainEventCount++;//每进一次中断，主事件函数自动加1
+  g_nSpeedControlPeriod++;//速度环控制周期计算量自动加1
+  if(g_nMainEventCount>=5)//SysTick是1ms一次，这里判断语句大于5就是5ms运行一次
+    {
+        g_nMainEventCount=0;//主事件循环每5ms循环一次，这里清零，重新计时。
+        GetMotorPulse(); //每5ms捕获一次脉冲
+        HAL_UART_Transmit(&huart1, "y1", 3, 1000);
+    }else if(g_nMainEventCount==1){//这1ms时间片段获取数据和角度计算
+        GetMpuData();//获取MPU-6050数据
+        AngleCalculate();    //进行角度计算    
+        // HAL_UART_Transmit(&huart1,&g_fCarAngle , 1, 1000);    
+    }else if(g_nMainEventCount==2){
+        AngleControl();        //这1ms时间片段进行角度控制
+    }else if(g_nMainEventCount==3){
+        if(g_nSpeedControlCount >= 5)
+        {
+            SpeedControl();     //速度控制，25ms进行一次
+            g_nSpeedControlCount=0; //清零
+            g_nSpeedControlPeriod=0;//清零
+        }
 
+    }else if(g_nMainEventCount==4){    
+        MotorOutput();         //电机输出函数，每5ms执行一次
+        uint8_t msg[32];
+        memset(msg, 0, sizeof(msg));
+        sprintf(msg, "y1:%d\n", nLeftMotorPwm);
+        HAL_UART_Transmit(&huart1,msg , strlen(msg), 1000);
+    }
+  //ButtonScan();
   /* USER CODE END SysTick_IRQn 0 */
   HAL_IncTick();
   /* USER CODE BEGIN SysTick_IRQn 1 */
-
+  HAL_SYSTICK_IRQHandler(); //这句要加上的
   /* USER CODE END SysTick_IRQn 1 */
 }
+
+
 
 /******************************************************************************/
 /* STM32F1xx Peripheral Interrupt Handlers                                    */
