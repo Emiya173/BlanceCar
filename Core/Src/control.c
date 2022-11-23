@@ -19,7 +19,7 @@
 #define CAR_ZERO_ANGLE  (g_fCarAngleOffset)  //机械零点偏移值
 float g_fCarAngleOffset= 0;//每辆小车的机械零点都不一定相同
 
-
+ 
 short x_nAcc,y_nAcc,z_nAcc;//加速度x轴、y轴、z轴数据
 short x_nGyro,y_nGyro,z_nGyro;//陀螺仪x轴、y轴、z轴数据
 float x_fAcc,y_fAcc,z_fAcc;//用于存储加速度x轴、y轴、z轴数据运算后的数据
@@ -115,13 +115,13 @@ void SetMotorVoltageAndDirection(int nLeftMotorPwm,int nRightMotorPwm)//设置�
 {
     if(nRightMotorPwm < 0)//反转
         {
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_14, GPIO_PIN_SET);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_15, GPIO_PIN_RESET);
+            HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_SET);
+            HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
             nRightMotorPwm = (-nRightMotorPwm);//如果计算值是负值，负值只是表示反转，先转负为正，因为PWM寄存器只能是正值
         }else//正转
         {
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_14, GPIO_PIN_RESET);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_15, GPIO_PIN_SET);
+            HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_RESET);
+            HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_SET);
             nRightMotorPwm = nRightMotorPwm;
         }
     if(nLeftMotorPwm < 0)//反转
@@ -199,7 +199,7 @@ void SpeedControl(void)//速度外环控制函数
 
     g_fSpeedControlOutOld = g_fSpeedControlOutNew;//保存上一次输出
 
-    g_fSpeedControlOutNew = fP + fI; //PI控制，P计算值和I计算值相加
+    g_fSpeedControlOutNew = fP + g_fCarPosition; //PI控制，P计算值和I计算值相加
 }
 
 void SpeedControlOutput(void)//速度外环平滑输出函数
